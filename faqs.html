@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs — Orbit Scanner</title>
+<meta name="description" content="Frequently asked questions about Orbit Scanner. Find answers about scanning, OCR, translation, eSign, subscriptions, privacy, and more.">
+<meta name="robots" content="index, follow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+    color: #1f2937;
+    background: #ffffff;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.doc-header { border-bottom: 2px solid #ede9fe; padding-bottom: 32px; margin-bottom: 40px; }
+  .brand {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #6d28d9; margin-bottom: 8px;
+  }
+  h1 { font-size: 32px; line-height: 1.2; font-weight: 700; color: #111827; margin-bottom: 12px; }
+  .tagline { font-size: 17px; color: #6b7280; }
+  .lead { font-size: 17px; color: #374151; margin: 24px 0; line-height: 1.6; }
+
+  /* Search bar */
+  .search-wrap {
+    position: relative; margin: 24px 0 32px;
+  }
+  .search-input {
+    width: 100%; padding: 14px 16px 14px 44px;
+    font-size: 16px; font-family: inherit;
+    background: #f9fafb; border: 1px solid #e5e7eb;
+    border-radius: 12px; color: #1f2937;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .search-input:focus {
+    outline: none; border-color: #6d28d9;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(109,40,217,0.1);
+  }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%); color: #9ca3af;
+    pointer-events: none;
+  }
+
+  /* Category pills */
+  .category-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 32px;
+  }
+  .pill {
+    padding: 8px 14px; font-size: 13px;
+    background: #f9fafb; color: #4b5563;
+    border: 1px solid #e5e7eb; border-radius: 999px;
+    text-decoration: none; font-weight: 500;
+    transition: all 0.15s;
+  }
+  .pill:hover {
+    background: #faf5ff; border-color: #c4b5fd;
+    color: #6d28d9;
+  }
+
+  h2 {
+    font-size: 22px; font-weight: 700; color: #111827;
+    margin: 44px 0 16px; padding-top: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2 .cat-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: #faf5ff; border-radius: 8px;
+    font-size: 16px;
+  }
+
+  /* FAQ accordion */
+  .faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background 0.15s;
+  }
+  .faq-item:hover { background: #fafafa; }
+  .faq-item[open] { background: #faf5ff; }
+  .faq-item summary {
+    list-style: none; cursor: pointer;
+    padding: 18px 44px 18px 4px;
+    font-size: 16px; font-weight: 600; color: #111827;
+    position: relative;
+    line-height: 1.5;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+"; position: absolute;
+    right: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 24px; font-weight: 400; color: #6d28d9;
+    line-height: 1; transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after {
+    content: "−";
+  }
+  .faq-answer {
+    padding: 0 4px 20px 4px;
+    color: #374151; font-size: 15px;
+    line-height: 1.65;
+  }
+  .faq-answer p { margin-bottom: 10px; }
+  .faq-answer p:last-child { margin-bottom: 0; }
+  .faq-answer ul { margin: 8px 0 8px 20px; }
+  .faq-answer li { margin-bottom: 4px; font-size: 15px; }
+  .faq-answer strong { color: #111827; }
+  .faq-answer a { color: #6d28d9; text-decoration: underline; }
+  .faq-answer a:hover { color: #4c1d95; }
+
+  /* No results */
+  .no-results {
+    display: none; padding: 32px; text-align: center;
+    color: #6b7280; background: #f9fafb;
+    border-radius: 12px; margin: 20px 0;
+  }
+  .no-results.show { display: block; }
+  .category-section.hidden { display: none; }
+
+  /* Help footer */
+  .help-card {
+    background: linear-gradient(135deg, #1b1b2f 0%, #2d2d44 100%);
+    color: #ffffff; padding: 32px; border-radius: 16px;
+    margin: 48px 0 32px; text-align: center;
+  }
+  .help-card h3 { color: #ffffff; font-size: 22px; margin: 0 0 8px; }
+  .help-card p { color: #c8bcff; font-size: 15px; margin-bottom: 20px; }
+  .help-card .button {
+    display: inline-block; background: #c8bcff; color: #1b1b2f;
+    padding: 12px 24px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; font-size: 15px; margin: 0 6px 8px;
+  }
+  .help-card .button:hover { background: #ede9fe; }
+  .help-card .button.secondary {
+    background: transparent; color: #c8bcff;
+    border: 1px solid #c8bcff;
+  }
+  .help-card .button.secondary:hover {
+    background: #c8bcff; color: #1b1b2f;
+  }
+
+  footer {
+    margin-top: 48px; padding-top: 32px; border-top: 1px solid #e5e7eb;
+    text-align: center; color: #9ca3af; font-size: 14px;
+  }
+  footer a { color: #6b7280; }
+
+  @media (max-width: 640px) {
+    .container { padding: 32px 18px 64px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    .faq-item summary { padding: 16px 36px 16px 4px; font-size: 15px; }
+    .help-card { padding: 24px; }
+    .help-card .button { display: block; margin: 6px 0; }
+  }
+  @media print {
+    .search-wrap, .category-nav, .help-card { display: none; }
+    .faq-item { background: transparent !important; }
+    .faq-item summary::after { display: none; }
+    details > div { display: block !important; }
+    body { font-size: 11pt; }
+    .container { padding: 0; max-width: 100%; }
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="doc-header">
+    <div class="brand">Orbit Scanner</div>
+    <h1>Frequently Asked Questions</h1>
+    <p class="tagline">Quick answers to the questions we hear most often.</p>
+  </header>
+
+  <p class="lead">Browse by category or use the search bar to find what you&rsquo;re looking for. Still stuck? <a href="/contact">Contact us</a> &mdash; we read every message.</p>
+
+  <div class="search-wrap">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="text" class="search-input" id="faq-search" placeholder="Search questions, e.g. &quot;cancel subscription&quot; or &quot;Hindi OCR&quot;..." aria-label="Search FAQs">
+  </div>
+
+  <nav class="category-nav" aria-label="Jump to category">
+    <a href="#cat-general" class="pill">Getting Started</a>
+    <a href="#cat-scanning" class="pill">Scanning</a>
+    <a href="#cat-ocr" class="pill">OCR &amp; AI</a>
+    <a href="#cat-pdf" class="pill">PDF Tools</a>
+    <a href="#cat-translate" class="pill">Translate</a>
+    <a href="#cat-esign" class="pill">eSign</a>
+    <a href="#cat-pro" class="pill">Pro &amp; Billing</a>
+    <a href="#cat-privacy" class="pill">Privacy</a>
+    <a href="#cat-account" class="pill">Account</a>
+    <a href="#cat-troubleshoot" class="pill">Troubleshooting</a>
+  </nav>
+
+  <div class="no-results" id="no-results">
+    No questions match your search. Try different keywords or <a href="/contact">contact us</a>.
+  </div>
+
+  <!-- ── GETTING STARTED ── -->
+  <section class="category-section" id="cat-general">
+    <h2><span class="cat-icon">🚀</span>Getting Started</h2>
+
+    <details class="faq-item">
+      <summary>What is Orbit Scanner?</summary>
+      <div class="faq-answer">
+        <p>Orbit Scanner is a mobile document intelligence app for Android (iOS coming soon). It combines five tools that usually require five separate apps: document scanning, PDF tools, AI-powered OCR, document translation, and electronic signatures &mdash; all in one focused experience.</p>
+        <p>It&rsquo;s built privacy-first: no ads, no data selling, no AI training on your documents.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do I get started after installing?</summary>
+      <div class="faq-answer">
+        <p>Open the app, tap through the brief onboarding, and you&rsquo;re ready to scan. Tap the <strong>scan button</strong> (the FAB at the bottom right of the Home screen) to capture your first document. You don&rsquo;t need to create an account to start scanning &mdash; an account is only required for cloud-based features like AI/OCR and eSign.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do I need an account to use the app?</summary>
+      <div class="faq-answer">
+        <p>You can scan and manage documents locally without an account. An account is needed for:</p>
+        <ul>
+          <li>AI/OCR features (Extract Text, Layout OCR, Translate, To Word, Enhance)</li>
+          <li>eSign</li>
+          <li>Cloud Sync (Pro)</li>
+          <li>Subscription management</li>
+        </ul>
+        <p>Sign in with Google for the fastest setup &mdash; no password to remember.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is Orbit Scanner free?</summary>
+      <div class="faq-answer">
+        <p>Yes, the Free plan is free forever. It includes unlimited scanning and local storage, plus monthly quotas for AI features. There are no ads. You only need to upgrade to Pro if you need unlimited AI/OCR operations or premium features like cloud sync.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Which languages does the app support?</summary>
+      <div class="faq-answer">
+        <p>The app interface is available in <strong>English</strong> and <strong>Hindi</strong>. OCR works with 100+ languages including English, Hindi, and other Indic scripts (Tamil, Telugu, Bengali, Marathi), as well as European, East Asian, and Arabic scripts. Translation supports 100+ language pairs.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── SCANNING ── -->
+  <section class="category-section" id="cat-scanning">
+    <h2><span class="cat-icon">📸</span>Scanning</h2>
+
+    <details class="faq-item">
+      <summary>How does auto edge detection work?</summary>
+      <div class="faq-answer">
+        <p>When you point your camera at a document, the app uses on-device AI to detect the document edges in real time. You&rsquo;ll see a purple overlay around your document. When the document is steady and well-framed, the app auto-captures and applies perspective correction so the output is rectangular.</p>
+        <p>For best results: ensure the document is on a contrasting surface (e.g. white paper on a dark table), and use good lighting.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I scan multiple pages at once?</summary>
+      <div class="faq-answer">
+        <p>Yes. After capturing the first page, tap <strong>Add Page</strong> to capture more. You can scan an entire booklet or contract in one session, then review, reorder, or remove pages before saving as a single PDF.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Edge detection isn&rsquo;t working. What should I do?</summary>
+      <div class="faq-answer">
+        <p>A few quick fixes:</p>
+        <ul>
+          <li>Improve the contrast between the document and the surface beneath it.</li>
+          <li>Move to a better-lit area or turn on the flash.</li>
+          <li>Hold the phone parallel to the document (not tilted).</li>
+          <li>If auto-detection still fails, switch to manual capture and adjust the crop corners yourself on the review screen.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I import images instead of scanning?</summary>
+      <div class="faq-answer">
+        <p>Yes. On the scan screen, tap the <strong>gallery icon</strong> to import images already on your device. Edge detection runs on imported images too.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What filters are available?</summary>
+      <div class="faq-answer">
+        <p>You can apply these filters after capture: <strong>Original</strong> (no enhancement), <strong>Auto</strong> (recommended for most documents), <strong>Black &amp; White</strong> (for high-contrast text), and <strong>Magic Color</strong> (best for printed color documents). Try each one in the preview &mdash; switching is instant.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does scanning work offline?</summary>
+      <div class="faq-answer">
+        <p>Yes, scanning, cropping, filtering, and saving all work fully offline. You only need an internet connection for cloud-based features: AI/OCR, translation, and cloud sync (Pro).</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── OCR & AI ── -->
+  <section class="category-section" id="cat-ocr">
+    <h2><span class="cat-icon">🤖</span>OCR &amp; AI</h2>
+
+    <details class="faq-item">
+      <summary>What&rsquo;s the difference between Extract Text and Layout OCR?</summary>
+      <div class="faq-answer">
+        <p><strong>Extract Text</strong> pulls plain text from your scan &mdash; great for simple documents like notes or letters where formatting doesn&rsquo;t matter.</p>
+        <p><strong>Layout OCR</strong> preserves the original structure: headings stay as headings, tables stay as tables, columns stay as columns. Use this when you need a clean, formatted output that mirrors the original document.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How accurate is the OCR?</summary>
+      <div class="faq-answer">
+        <p>Accuracy depends on scan quality, lighting, and document complexity. For clear, well-scanned English documents, accuracy is typically above 95%. Handwriting, faded text, or low-resolution scans will produce lower accuracy. Always verify extracted text against the original for critical documents.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does OCR work with Hindi and other Indic languages?</summary>
+      <div class="faq-answer">
+        <p>Yes. We&rsquo;ve invested specifically in Devanagari accuracy because most scanner apps treat Hindi as an afterthought. Our OCR handles Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Punjabi, and other Indic scripts. Mixed Hindi+English documents are also supported.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does OCR work offline?</summary>
+      <div class="faq-answer">
+        <p>Basic OCR (Extract Text) may run on-device depending on your phone. Layout OCR and other AI-powered features require an internet connection because they use our cloud AI providers. You&rsquo;ll see a clear message if a feature requires internet.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What happens to my document when I use AI features?</summary>
+      <div class="faq-answer">
+        <p>When you tap an AI feature, your document is securely sent to our processing servers, processed by our AI provider, and the result is returned to your phone. <strong>The document is then deleted from our servers immediately</strong> &mdash; typically within 60 seconds. We do not keep copies, cache it, or use it for AI training. Read more in our <a href="/data-protection">Data Protection</a> document.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How many AI operations can I run on the free tier?</summary>
+      <div class="faq-answer">
+        <p>The Free plan includes:</p>
+        <ul>
+          <li><strong>5 OCR extractions per month</strong> (Extract Text)</li>
+          <li><strong>3 AI operations per month</strong> (Layout OCR, Translate, To Word, Enhance &mdash; combined)</li>
+        </ul>
+        <p>Quotas reset on the same day each month. Upgrade to Pro for unlimited usage.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── PDF TOOLS ── -->
+  <section class="category-section" id="cat-pdf">
+    <h2><span class="cat-icon">📄</span>PDF Tools</h2>
+
+    <details class="faq-item">
+      <summary>What PDF tools are available?</summary>
+      <div class="faq-answer">
+        <p>The PDF toolkit includes:</p>
+        <ul>
+          <li><strong>Merge PDF</strong> &mdash; combine multiple PDFs into one</li>
+          <li><strong>Compress PDF</strong> &mdash; reduce file size</li>
+          <li><strong>Protect PDF</strong> &mdash; add password protection</li>
+          <li><strong>Image to PDF</strong> &mdash; convert one or more images into a PDF</li>
+          <li><strong>PDF to Image</strong> &mdash; export each PDF page as an image</li>
+          <li><strong>PDF to Word</strong> &mdash; convert a PDF into an editable Word document</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Why do my free-tier PDFs have a watermark?</summary>
+      <div class="faq-answer">
+        <p>PDF tool outputs on the Free plan include a small Orbit Scanner watermark. This is removed on the Pro plan. Note: regular scans (not PDF tool outputs) never have a watermark, even on the Free plan.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How many PDF operations can I do per day on the free tier?</summary>
+      <div class="faq-answer">
+        <p>The Free plan includes <strong>3 PDF tool operations per day</strong>. The quota resets at midnight your local time. Pro removes this limit entirely.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I password-protect a PDF I&rsquo;ve already scanned?</summary>
+      <div class="faq-answer">
+        <p>Yes. Open the file, tap <strong>Tools → Protect PDF</strong>, set a password, and save. You&rsquo;ll need that password to open the protected PDF in any reader. We can&rsquo;t recover lost passwords, so write it down safely.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How good is PDF-to-Word conversion?</summary>
+      <div class="faq-answer">
+        <p>Conversion works well for text-heavy PDFs with simple layouts. Complex layouts, tables, and embedded images may need some manual cleanup in Word. The output is a true <code>.docx</code> file that you can edit directly.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── TRANSLATE ── -->
+  <section class="category-section" id="cat-translate">
+    <h2><span class="cat-icon">🌐</span>Translate</h2>
+
+    <details class="faq-item">
+      <summary>How many languages are supported for translation?</summary>
+      <div class="faq-answer">
+        <p>Over 100 languages, including English, Hindi, Spanish, French, German, Mandarin Chinese, Japanese, Korean, Arabic, Tamil, Telugu, Bengali, Marathi, Gujarati, Punjabi, and many more. The full list is available in the Translate screen when you select a target language.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What are the three output formats for translation?</summary>
+      <div class="faq-answer">
+        <ul>
+          <li><strong>Translated Image (Preview)</strong> &mdash; the translated text is overlaid on the original document layout, so it looks like the original but in another language. Best for visual fidelity.</li>
+          <li><strong>Side by Side</strong> &mdash; original and translated text shown together. Best for comparison.</li>
+          <li><strong>Text Only</strong> &mdash; just the translated text, no layout. Best for copying/sharing translated content.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I improve translation quality?</summary>
+      <div class="faq-answer">
+        <p>Yes. In the Translate config screen, toggle <strong>Improve accuracy</strong> ON. This uses a higher-quality translation model and takes slightly longer to process. Recommended for important documents.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is translation free?</summary>
+      <div class="faq-answer">
+        <p>Translation counts toward the Free plan&rsquo;s AI quota (3 operations per month, combined across Layout OCR, Translate, To Word, and Enhance). Pro gives you unlimited translations.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── eSIGN ── -->
+  <section class="category-section" id="cat-esign">
+    <h2><span class="cat-icon">✍️</span>eSign</h2>
+
+    <details class="faq-item">
+      <summary>How do I sign a PDF?</summary>
+      <div class="faq-answer">
+        <p>Open the PDF, tap <strong>Sign</strong>, then either draw a signature with your finger, upload an existing signature image, or type a signature. Tap on the PDF where you want the signature to appear, then resize and position it. You can also add text fields, dates, and stamps. Save the signed PDF when done.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Are Orbit Scanner signatures legally binding?</summary>
+      <div class="faq-answer">
+        <p><strong>No.</strong> The eSign feature is for convenience and informal use. It does <strong>not</strong> meet the standards of legally binding electronic signature laws like the Indian IT Act, the US ESIGN Act, or the EU eIDAS Regulation. We do not provide identity verification, audit trails, tamper-evident sealing, or certificate-based signatures.</p>
+        <p>For legally binding signatures (employment contracts, real estate, legal agreements), use a certified eSign service like DocuSign, SignDesk, or an Aadhaar-based service.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Where are my signatures stored?</summary>
+      <div class="faq-answer">
+        <p>Signatures are stored locally on your device only. They are never uploaded to our servers (in v1). You can delete saved signatures anytime from the Sign menu.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How many documents can I eSign per month on the free tier?</summary>
+      <div class="faq-answer">
+        <p>The Free plan allows <strong>1 eSign per month</strong>. Pro gives you unlimited eSign.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── PRO & BILLING ── -->
+  <section class="category-section" id="cat-pro">
+    <h2><span class="cat-icon">💎</span>Pro &amp; Billing</h2>
+
+    <details class="faq-item">
+      <summary>What does Pro include?</summary>
+      <div class="faq-answer">
+        <ul>
+          <li>Unlimited PDF tool operations (no daily limit)</li>
+          <li>No watermarks on outputs</li>
+          <li>Unlimited OCR and AI operations</li>
+          <li>Unlimited eSign</li>
+          <li>Advanced accuracy modes</li>
+          <li>Cloud Sync across devices</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How much does Pro cost?</summary>
+      <div class="faq-answer">
+        <p>In India: <strong>₹199/week</strong>, <strong>₹499/month</strong>, or <strong>₹2,499/year</strong> (Yearly is the best value &mdash; saves around 60%). Pricing in other countries is shown in your local currency at checkout.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do I cancel my subscription?</summary>
+      <div class="faq-answer">
+        <p>Cancel through Google Play (Android):</p>
+        <ul>
+          <li>Open the Google Play Store app</li>
+          <li>Tap your profile → Payments &amp; subscriptions → Subscriptions</li>
+          <li>Tap Orbit Scanner → Cancel subscription</li>
+        </ul>
+        <p>You&rsquo;ll keep Pro access until the end of the current billing period. We don&rsquo;t prorate refunds, but you won&rsquo;t be charged again.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Will I get a refund if I cancel?</summary>
+      <div class="faq-answer">
+        <p>Refunds are handled entirely by Google Play, not by us. If you believe you&rsquo;re entitled to a refund (e.g. accidental purchase within 48 hours), request it through Google Play. We don&rsquo;t process refunds directly.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>I bought Pro on my old phone. How do I restore it on my new phone?</summary>
+      <div class="faq-answer">
+        <p>Sign in with the <strong>same Google account</strong> you used for the original purchase, then go to <strong>Profile → Restore Purchase</strong>. Your Pro status will be restored automatically. No re-payment needed.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you accept UPI / Net Banking?</summary>
+      <div class="faq-answer">
+        <p>Yes. Google Play Billing supports UPI, Net Banking, Credit/Debit cards, and Google Play credit in India. At checkout, choose the payment method that works best for you.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is there a free trial?</summary>
+      <div class="faq-answer">
+        <p>If a free trial is offered, you&rsquo;ll see it on the subscription screen. Trials don&rsquo;t charge you until they end. Cancel anytime before the trial ends to avoid being billed.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── PRIVACY ── -->
+  <section class="category-section" id="cat-privacy">
+    <h2><span class="cat-icon">🔒</span>Privacy</h2>
+
+    <details class="faq-item">
+      <summary>Do you keep my documents on your servers?</summary>
+      <div class="faq-answer">
+        <p><strong>No.</strong> Documents you send to the cloud for AI/OCR processing are deleted from our servers within 60 seconds of processing completing. We do not retain copies, archive them, or use them for anything other than fulfilling your immediate request.</p>
+        <p>The exception is Cloud Sync (a Pro feature). If you opt in to Cloud Sync, your documents are stored encrypted in cloud storage so you can access them across devices. You can disable Cloud Sync anytime.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you train AI on my documents?</summary>
+      <div class="faq-answer">
+        <p><strong>No.</strong> We do not train AI models on your data. Our AI/OCR providers are contractually prohibited from using your data for model training. Read more in our <a href="/data-protection">Data Protection</a> document.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you show ads?</summary>
+      <div class="faq-answer">
+        <p>No. Not on the Free plan. Not anywhere. Orbit Scanner is funded entirely by Pro subscriptions, not advertising.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you sell my data?</summary>
+      <div class="faq-answer">
+        <p>No. We do not sell, rent, or trade your personal data to anyone. Read our <a href="/privacy">Privacy Policy</a> for the full details.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my data encrypted?</summary>
+      <div class="faq-answer">
+        <p>Yes. All data in transit uses TLS 1.2 or higher. Cloud-stored data (Pro Cloud Sync) is encrypted at rest with AES-256. Sensitive data on your device (auth tokens, subscription state) is stored using platform-encrypted storage (Android Keystore / iOS Keychain).</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── ACCOUNT ── -->
+  <section class="category-section" id="cat-account">
+    <h2><span class="cat-icon">👤</span>Account</h2>
+
+    <details class="faq-item">
+      <summary>How do I change my email or name?</summary>
+      <div class="faq-answer">
+        <p>Go to <strong>Profile → Profile</strong> in the app. Tap the field you want to update. If you signed in with Google, your name and email come from your Google account &mdash; update them there.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do I delete my account?</summary>
+      <div class="faq-answer">
+        <p>In the app: <strong>Profile → Security → Delete Account</strong>. Confirm with your password or biometric.</p>
+        <p>Alternatively, email <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a> from the email address on your account.</p>
+        <p>Your account and all associated personal data are permanently deleted within 30 days. Locally stored documents on your device are not affected by account deletion &mdash; you can delete them separately or keep them.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Will deleting my account cancel my subscription?</summary>
+      <div class="faq-answer">
+        <p>No. Subscriptions must be cancelled separately through Google Play. We recommend cancelling your subscription <strong>first</strong>, then deleting your account.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I switch from Google Sign-In to email/password?</summary>
+      <div class="faq-answer">
+        <p>This depends on your current configuration. Go to <strong>Profile → Security</strong> to see available sign-in methods. If you need help switching, contact us at <a href="mailto:support@your-domain.com">support@your-domain.com</a>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I export my data?</summary>
+      <div class="faq-answer">
+        <p>Yes. Go to <strong>Profile → Settings → Export My Data</strong>. You&rsquo;ll receive a JSON file containing your profile, subscription history, and document metadata. Available within 72 hours of your request.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── TROUBLESHOOTING ── -->
+  <section class="category-section" id="cat-troubleshoot">
+    <h2><span class="cat-icon">🔧</span>Troubleshooting</h2>
+
+    <details class="faq-item">
+      <summary>The app keeps crashing. What should I do?</summary>
+      <div class="faq-answer">
+        <p>Try these in order:</p>
+        <ul>
+          <li>Force-close the app and reopen it.</li>
+          <li>Restart your phone.</li>
+          <li>Make sure you have the latest version from Google Play.</li>
+          <li>Free up some device storage (the app needs space for scans).</li>
+          <li>If it still crashes, email <a href="mailto:support@your-domain.com">support@your-domain.com</a> with your phone model, Android version, and a description of what you were doing when it crashed.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>I paid for Pro but the app still shows Free. What now?</summary>
+      <div class="faq-answer">
+        <p>Tap <strong>Profile → Restore Purchase</strong>. This re-syncs your subscription status with Google Play and should activate Pro within seconds. If it doesn&rsquo;t work, make sure you&rsquo;re signed in with the Google account you used for the purchase. Still stuck? Contact <a href="mailto:support@your-domain.com">support@your-domain.com</a>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>OCR is producing garbled output. Why?</summary>
+      <div class="faq-answer">
+        <p>OCR accuracy depends heavily on scan quality. Try:</p>
+        <ul>
+          <li>Rescanning with better lighting</li>
+          <li>Holding the phone steadier (use a tripod or rest on a flat surface)</li>
+          <li>Using the <strong>Auto</strong> filter before running OCR</li>
+          <li>For Hindi or other Indic documents, make sure the document language is detected correctly</li>
+          <li>Try <strong>Layout OCR</strong> with &ldquo;Improve accuracy&rdquo; enabled for complex documents</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>An AI feature failed but my quota was still used. What do I do?</summary>
+      <div class="faq-answer">
+        <p>If a cloud AI operation fails due to a network or server error, the quota should not be deducted. If you see a quota was incorrectly used, email <a href="mailto:support@your-domain.com">support@your-domain.com</a> with the date and time, and we&rsquo;ll restore it.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Why does the app need camera and storage permissions?</summary>
+      <div class="faq-answer">
+        <ul>
+          <li><strong>Camera</strong> &mdash; required to scan documents.</li>
+          <li><strong>Storage</strong> &mdash; required to save scans to your device and to access files you want to import (e.g. importing a PDF to merge).</li>
+        </ul>
+        <p>We do not access your storage in the background. We only read files you explicitly select.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Which Android versions are supported?</summary>
+      <div class="faq-answer">
+        <p>Orbit Scanner supports <strong>Android 8.0 (Oreo) and later</strong>. We test extensively on devices from Redmi, Realme, Samsung, Motorola, OnePlus, and Pixel.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>When is the iOS app coming?</summary>
+      <div class="faq-answer">
+        <p>Soon. iOS is our next major milestone. If you want to be notified when it launches, email <a href="mailto:hello@your-domain.com">hello@your-domain.com</a> with &ldquo;iOS waitlist&rdquo; in the subject line.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- HELP CARD -->
+  <div class="help-card">
+    <h3>Didn&rsquo;t find your answer?</h3>
+    <p>We read every message. Most replies go out within 24 hours.</p>
+    <a href="/contact" class="button">Contact us</a>
+    <a href="mailto:support@your-domain.com" class="button secondary">Email support</a>
+  </div>
+
+  <footer>
+    <p>&copy; [Year] [Your Company Name]. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms of Service</a> &nbsp;·&nbsp;
+      <a href="/data-protection">Data Protection</a> &nbsp;·&nbsp;
+      <a href="/about">About Us</a> &nbsp;·&nbsp;
+      <a href="/contact">Contact</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // Simple client-side search
+  (function() {
+    const input = document.getElementById('faq-search');
+    const noResults = document.getElementById('no-results');
+    const sections = document.querySelectorAll('.category-section');
+    const items = document.querySelectorAll('.faq-item');
+
+    input.addEventListener('input', function() {
+      const q = this.value.trim().toLowerCase();
+      if (!q) {
+        sections.forEach(s => s.classList.remove('hidden'));
+        items.forEach(i => { i.style.display = ''; i.removeAttribute('open'); });
+        noResults.classList.remove('show');
+        return;
+      }
+
+      let totalMatches = 0;
+      sections.forEach(section => {
+        const sectionItems = section.querySelectorAll('.faq-item');
+        let sectionMatches = 0;
+        sectionItems.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          if (text.includes(q)) {
+            item.style.display = '';
+            item.setAttribute('open', '');
+            sectionMatches++;
+            totalMatches++;
+          } else {
+            item.style.display = 'none';
+            item.removeAttribute('open');
+          }
+        });
+        section.classList.toggle('hidden', sectionMatches === 0);
+      });
+
+      noResults.classList.toggle('show', totalMatches === 0);
+    });
+  })();
+</script>
+</body>
+</html>
