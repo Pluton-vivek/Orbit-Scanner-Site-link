@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Protection — Orbit Scanner</title>
+<meta name="description" content="Orbit Scanner Data Protection Policy. Technical and organizational measures we take to protect your data, including ephemeral cloud processing, encryption, and incident response.">
+<meta name="robots" content="index, follow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+    color: #1f2937;
+    background: #ffffff;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.doc-header { border-bottom: 2px solid #ede9fe; padding-bottom: 32px; margin-bottom: 40px; }
+  .brand {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #6d28d9; margin-bottom: 8px;
+  }
+  h1 { font-size: 32px; line-height: 1.2; font-weight: 700; color: #111827; margin-bottom: 12px; }
+  .meta { font-size: 14px; color: #6b7280; }
+  .meta strong { color: #374151; font-weight: 600; }
+  .lead { font-size: 17px; color: #374151; margin: 24px 0 16px; }
+  h2 {
+    font-size: 22px; font-weight: 700; color: #111827;
+    margin: 40px 0 12px; padding-top: 8px;
+  }
+  h3 { font-size: 17px; font-weight: 700; color: #1f2937; margin: 28px 0 8px; }
+  p { margin-bottom: 14px; font-size: 16px; }
+  ul { margin: 0 0 16px 24px; }
+  li { margin-bottom: 8px; font-size: 16px; }
+  li strong { color: #111827; font-weight: 600; }
+  a { color: #6d28d9; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: #4c1d95; }
+  .toc {
+    background: #faf5ff; border: 1px solid #ede9fe; border-radius: 12px;
+    padding: 20px 24px; margin-bottom: 40px;
+  }
+  .toc-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #6d28d9; margin-bottom: 12px;
+  }
+  .toc ol { margin: 0; padding-left: 22px; font-size: 15px; columns: 2; column-gap: 32px; }
+  .toc li { margin-bottom: 6px; break-inside: avoid; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .feature-callout {
+    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+    border: 1px solid #c4b5fd; border-radius: 12px;
+    padding: 24px; margin: 24px 0;
+  }
+  .feature-callout .label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #6d28d9; margin-bottom: 8px;
+  }
+  .feature-callout h3 { margin-top: 0; color: #4c1d95; }
+  .feature-callout p:last-child { margin-bottom: 0; }
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 15px;
+  }
+  th, td {
+    text-align: left; padding: 12px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+  th { background: #f9fafb; font-weight: 700; color: #111827; font-size: 14px; }
+  td strong { color: #111827; }
+  .contact-card {
+    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px;
+    padding: 24px; margin-top: 16px;
+  }
+  .contact-card p { margin-bottom: 6px; font-size: 15px; }
+  footer {
+    margin-top: 64px; padding-top: 32px; border-top: 1px solid #e5e7eb;
+    text-align: center; color: #9ca3af; font-size: 14px;
+  }
+  footer a { color: #6b7280; }
+
+  @media (max-width: 640px) {
+    .container { padding: 32px 18px 64px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 20px; }
+    .toc ol { columns: 1; }
+    table { font-size: 14px; }
+    th, td { padding: 10px; }
+  }
+  @media print {
+    .toc, .feature-callout { background: #f9fafb !important; }
+    body { font-size: 11pt; }
+    .container { padding: 0; max-width: 100%; }
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="doc-header">
+    <div class="brand">Orbit Scanner</div>
+    <h1>Data Protection</h1>
+    <p class="meta"><strong>Effective Date:</strong> [Date] &nbsp;·&nbsp; <strong>Last Updated:</strong> [Date]</p>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#section-1">Our Approach to Data Protection</a></li>
+      <li><a href="#section-2">Ephemeral Cloud Processing</a></li>
+      <li><a href="#section-3">Encryption Standards</a></li>
+      <li><a href="#section-4">Access Controls</a></li>
+      <li><a href="#section-5">Authentication &amp; Sessions</a></li>
+      <li><a href="#section-6">Sub-Processors</a></li>
+      <li><a href="#section-7">International Data Transfers</a></li>
+      <li><a href="#section-8">Data Retention &amp; Deletion</a></li>
+      <li><a href="#section-9">Incident Response</a></li>
+      <li><a href="#section-10">Compliance &amp; Audits</a></li>
+      <li><a href="#section-11">Your Rights as a Data Subject</a></li>
+      <li><a href="#section-12">Responsible Disclosure</a></li>
+      <li><a href="#section-13">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <p class="lead">This Data Protection document describes the technical and organizational measures (TOMs) that [Your Company Name] implements to protect personal data processed through Orbit Scanner. It supplements our <a href="/privacy">Privacy Policy</a> and provides additional transparency for users, business partners, regulators, and auditors who require detail on our security and data protection practices.</p>
+
+  <p>This document is maintained in accordance with the GDPR (Article 32), India DPDP Act, CCPA/CPRA, UK GDPR, LGPD, and ISO/IEC 27001-aligned principles.</p>
+
+  <h2 id="section-1">1. Our Approach to Data Protection</h2>
+  <p>Data protection is not an add-on feature at Orbit Scanner — it is an architectural choice. We design the App and our backend to collect the minimum data necessary, store data for the minimum time necessary, and protect that data with industry-standard controls.</p>
+  <p>Our principles:</p>
+  <ul>
+    <li><strong>Data minimization.</strong> We collect only what we need to provide and improve the service.</li>
+    <li><strong>Purpose limitation.</strong> Data collected for one purpose is not repurposed without explicit user consent.</li>
+    <li><strong>Storage limitation.</strong> We delete data as soon as it is no longer needed for its original purpose.</li>
+    <li><strong>Integrity and confidentiality.</strong> All data is encrypted in transit and at rest.</li>
+    <li><strong>Accountability.</strong> We maintain records of processing activities and respond to data subject requests within statutory timelines.</li>
+    <li><strong>No data monetization.</strong> We do not sell data, share it for advertising, or train AI models on user content.</li>
+  </ul>
+
+  <h2 id="section-2">2. Ephemeral Cloud Processing</h2>
+
+  <div class="feature-callout">
+    <div class="label">Our Architecture Choice</div>
+    <h3>Documents you send to the cloud are deleted within 60 seconds.</h3>
+    <p>When you use AI/OCR features (Layout OCR, Translate, To Word, Enhance, Extract Tables), your document is transmitted to our processing servers, processed by our AI/OCR provider, and deleted from our infrastructure immediately after the result is returned to you. We do not cache, log, archive, or retain copies. Our systems are designed to be incapable of long-term retention.</p>
+  </div>
+
+  <h3>What this means in practice</h3>
+  <ul>
+    <li><strong>Server-side delete is automatic and audited.</strong> Cleanup jobs run continuously. Storage buckets used for processing have automatic lifecycle policies that delete objects after each job completes.</li>
+    <li><strong>No content in logs.</strong> Server processing logs record operation type, duration, file size, and status code only. Document content, OCR output, and file bytes are never logged.</li>
+    <li><strong>Sub-processors are contractually bound.</strong> Our AI/OCR providers operate under Data Processing Agreements (DPAs) that prohibit retention, training on customer data, or any secondary use.</li>
+    <li><strong>On-device processing is preferred where possible.</strong> Edge detection, image cropping, filters, and basic OCR can run entirely on-device.</li>
+  </ul>
+
+  <h3>Cloud Sync (Pro feature) is different</h3>
+  <p>If you enable Cloud Sync as a Pro subscriber, your documents are stored in encrypted cloud storage to enable cross-device access. This is opt-in. You can disable Cloud Sync at any time. Upon disabling, your cloud-stored copies are deleted within 90 days. See Section 8 for full retention details.</p>
+
+  <h2 id="section-3">3. Encryption Standards</h2>
+
+  <h3>3.1 Encryption in Transit</h3>
+  <ul>
+    <li>All network communication between the App and our backend uses <strong>TLS 1.2 or higher</strong>.</li>
+    <li>The Android app explicitly blocks cleartext traffic (<code>android:usesCleartextTraffic=&quot;false&quot;</code>).</li>
+    <li>iOS App Transport Security (ATS) is enforced.</li>
+    <li>Server-side TLS configuration disables deprecated protocols and weak ciphers.</li>
+    <li>Certificate pinning is implemented for critical API endpoints to defend against man-in-the-middle attacks.</li>
+  </ul>
+
+  <h3>3.2 Encryption at Rest</h3>
+  <ul>
+    <li><strong>Backend databases:</strong> PostgreSQL with AES-256 Transparent Data Encryption.</li>
+    <li><strong>Cloud storage (S3):</strong> All buckets use SSE-S3 server-side encryption with AES-256.</li>
+    <li><strong>On-device sensitive data:</strong> Authentication tokens, subscription state, and user profile cache are stored using AndroidX EncryptedSharedPreferences (Android) or iOS Keychain Services. Encryption keys are managed by the platform&rsquo;s hardware-backed keystore.</li>
+    <li><strong>Scanned documents on device:</strong> Stored in app-private storage (sandboxed; not accessible to other apps without root).</li>
+  </ul>
+
+  <h3>3.3 Secrets Management</h3>
+  <p>API keys, database credentials, and third-party tokens are never hardcoded in the App or backend source code. Secrets are stored in environment variables and managed by a secrets manager (e.g., AWS Secrets Manager). Build-time secrets are injected via CI/CD pipelines from secured vaults.</p>
+
+  <h2 id="section-4">4. Access Controls</h2>
+  <ul>
+    <li><strong>Principle of least privilege.</strong> Backend services and personnel have access only to the systems and data they need to perform their function. Database users have only the SQL grants required for their service; no superuser access in production code.</li>
+    <li><strong>Multi-factor authentication.</strong> All personnel with access to production systems use MFA via hardware-backed tokens or authenticator apps.</li>
+    <li><strong>SSH key-based access.</strong> Password-based SSH is disabled on all production hosts. Access requires individual SSH keys rotated regularly.</li>
+    <li><strong>Audit logging.</strong> All administrative actions on production systems are logged to an append-only audit trail.</li>
+    <li><strong>Environment separation.</strong> Development, staging, and production environments are fully isolated. Production data is never copied to dev/staging; staging uses synthetic data.</li>
+  </ul>
+
+  <h2 id="section-5">5. Authentication &amp; Sessions</h2>
+  <ul>
+    <li><strong>Google Sign-In (OAuth 2.0).</strong> Primary authentication via Google Sign-In using the OAuth 2.0 Authorization Code flow. Tokens are validated server-side against Google&rsquo;s public keys. Minimal scopes requested: <code>openid</code>, <code>email</code>, <code>profile</code>.</li>
+    <li><strong>Password hashing.</strong> Where email/password authentication is offered, passwords are hashed using bcrypt with a cost factor of 12 before storage. Plaintext passwords are never stored.</li>
+    <li><strong>Access tokens.</strong> JWTs with a 1-hour expiry, signed using strong asymmetric keys.</li>
+    <li><strong>Refresh tokens.</strong> 7-day expiry with rotation — the old refresh token is invalidated on each use to defeat replay attacks.</li>
+    <li><strong>Session invalidation.</strong> All sessions invalidated on password change or account suspension.</li>
+    <li><strong>Brute-force protection.</strong> Login attempts rate-limited to 5 per minute per IP and 10 per minute per account. Exponential backoff after failures. Account lockout after 10 consecutive failures (30-minute cooldown).</li>
+  </ul>
+
+  <h2 id="section-6">6. Sub-Processors</h2>
+  <p>We use a limited set of trusted sub-processors to provide the App. Each sub-processor operates under a Data Processing Agreement (DPA) that includes confidentiality obligations, data protection commitments, and (for cross-border transfers) Standard Contractual Clauses.</p>
+
+  <table>
+    <thead>
+      <tr><th>Sub-Processor</th><th>Purpose</th><th>Data Processed</th><th>Location</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Google Firebase</strong></td>
+        <td>Analytics, crash reporting, performance monitoring</td>
+        <td>Anonymized event data, crash logs, device identifiers</td>
+        <td>USA / EU</td>
+      </tr>
+      <tr>
+        <td><strong>RevenueCat</strong></td>
+        <td>Subscription management and entitlement validation</td>
+        <td>Anonymized user ID, subscription state, purchase receipts</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td><strong>Amazon Web Services (S3)</strong></td>
+        <td>Encrypted cloud storage for Pro Cloud Sync</td>
+        <td>User-uploaded documents (opt-in only)</td>
+        <td>Asia-Pacific / EU</td>
+      </tr>
+      <tr>
+        <td><strong>[AI/OCR Provider]</strong></td>
+        <td>Cloud OCR, translation, layout analysis, document conversion</td>
+        <td>Ephemeral: document content for processing only, deleted immediately after</td>
+        <td>[Region]</td>
+      </tr>
+      <tr>
+        <td><strong>Google Play Billing</strong></td>
+        <td>Payment processing for Android subscriptions</td>
+        <td>Payment data handled entirely by Google. We receive only receipt and status.</td>
+        <td>Per Google&rsquo;s infrastructure</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>We publish updates to this sub-processor list within 30 days of any material change. For an authoritative current list, contact us at the address below.</p>
+
+  <h2 id="section-7">7. International Data Transfers</h2>
+  <p>Personal data may be transferred to and processed in countries other than your country of residence, including India and the United States. When we transfer data internationally, we ensure appropriate safeguards:</p>
+  <ul>
+    <li><strong>EU/EEA transfers:</strong> Standard Contractual Clauses (SCCs) approved by the European Commission.</li>
+    <li><strong>UK transfers:</strong> UK International Data Transfer Agreement (IDTA) or SCCs with the UK Addendum.</li>
+    <li><strong>India:</strong> Compliance with the India DPDP Act&rsquo;s cross-border transfer provisions.</li>
+    <li><strong>Brazil:</strong> Compliance with LGPD transfer requirements.</li>
+    <li>All third-party processors are contractually bound to maintain protection standards at least equivalent to those of the originating jurisdiction.</li>
+  </ul>
+
+  <h2 id="section-8">8. Data Retention &amp; Deletion</h2>
+
+  <table>
+    <thead>
+      <tr><th>Data Category</th><th>Retention Period</th><th>Deletion Mechanism</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Account data</strong> (name, email, profile)</td>
+        <td>Active account lifetime</td>
+        <td>Permanently deleted within 30 days of account deletion request</td>
+      </tr>
+      <tr>
+        <td><strong>Cloud-processed documents</strong> (AI/OCR)</td>
+        <td>Ephemeral (under 60 seconds)</td>
+        <td>Auto-deleted server-side immediately after processing completes</td>
+      </tr>
+      <tr>
+        <td><strong>Cloud-synced documents</strong> (Pro)</td>
+        <td>While Pro subscription is active</td>
+        <td>Retained for 90 days after downgrade/cancellation, then permanently deleted</td>
+      </tr>
+      <tr>
+        <td><strong>Analytics data (linkable)</strong></td>
+        <td>26 months maximum</td>
+        <td>Auto-purged by Firebase retention policy</td>
+      </tr>
+      <tr>
+        <td><strong>Analytics data (aggregated)</strong></td>
+        <td>Indefinite (anonymized)</td>
+        <td>Cannot be linked to individuals</td>
+      </tr>
+      <tr>
+        <td><strong>Crash logs</strong></td>
+        <td>90 days detailed; aggregated thereafter</td>
+        <td>Auto-purged by Crashlytics retention</td>
+      </tr>
+      <tr>
+        <td><strong>Support communications</strong></td>
+        <td>24 months after resolution</td>
+        <td>Auto-deleted from support system</td>
+      </tr>
+      <tr>
+        <td><strong>Authentication tokens</strong></td>
+        <td>1 hour access, 7 days refresh</td>
+        <td>Cleared on logout or expiry; rotated on each refresh</td>
+      </tr>
+      <tr>
+        <td><strong>Locally stored documents</strong></td>
+        <td>User-controlled</td>
+        <td>Not affected by account actions; user manages directly</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>If you wish to delete your account and associated data, you can do so via Profile → Security → Delete Account in the App, or by emailing <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a>.</p>
+
+  <h2 id="section-9">9. Incident Response</h2>
+  <p>We maintain a documented incident response process to handle suspected or actual data security incidents. The process follows a standard sequence:</p>
+  <ul>
+    <li><strong>Detect.</strong> Continuous monitoring of backend systems, authentication patterns, and unusual API activity. Automated alerts route to an on-call engineer.</li>
+    <li><strong>Contain.</strong> Affected systems isolated. Compromised credentials rotated immediately. Affected user sessions invalidated.</li>
+    <li><strong>Eradicate.</strong> Root cause identified and remediated. Vulnerabilities patched.</li>
+    <li><strong>Notify.</strong> If the incident involves personal data and meets the notification threshold, affected users and regulators are notified within <strong>72 hours</strong> in accordance with GDPR Article 33, DPDP, and other applicable laws.</li>
+    <li><strong>Recover.</strong> Services restored. Affected users supported with remediation steps.</li>
+    <li><strong>Review.</strong> Post-mortem within 7 days. Lessons applied to prevent recurrence.</li>
+  </ul>
+
+  <h3>Backups &amp; Disaster Recovery</h3>
+  <ul>
+    <li><strong>Automated daily backups</strong> of PostgreSQL with point-in-time recovery via WAL archiving.</li>
+    <li>Backups are encrypted and stored in a separate region from primary infrastructure.</li>
+    <li><strong>Monthly restore tests</strong> verify backups are valid and recovery procedures work.</li>
+    <li><strong>Recovery Time Objective (RTO):</strong> 4 hours.</li>
+    <li><strong>Recovery Point Objective (RPO):</strong> 1 hour.</li>
+  </ul>
+
+  <h2 id="section-10">10. Compliance &amp; Audits</h2>
+  <ul>
+    <li><strong>GDPR (EU/EEA):</strong> We process personal data in accordance with the GDPR. Our Data Processing Agreement with sub-processors includes SCCs for cross-border transfers.</li>
+    <li><strong>UK GDPR:</strong> Compliance maintained with UK GDPR and Data Protection Act 2018.</li>
+    <li><strong>India DPDP Act, 2023:</strong> A Grievance Officer is appointed and contactable in-app and via email (see Section 13). Data Protection Board complaints are honored.</li>
+    <li><strong>CCPA/CPRA (California):</strong> We do not sell personal information as defined by the CCPA/CPRA.</li>
+    <li><strong>LGPD (Brazil):</strong> Compliance with LGPD obligations for users in Brazil.</li>
+    <li><strong>Google Play policies:</strong> Data Safety form completed and consistent with this policy. Account deletion mechanism provided in-app and via the web.</li>
+    <li><strong>Annual security review:</strong> Independent third-party security audit (penetration test + code review) is conducted annually. Critical findings are remediated within 30 days.</li>
+    <li><strong>Vulnerability management:</strong> Dependencies are scanned weekly via automated tooling. Critical CVEs are patched within 48 hours.</li>
+  </ul>
+
+  <h2 id="section-11">11. Your Rights as a Data Subject</h2>
+  <p>You have specific rights regarding your personal data. Detailed coverage of these rights by jurisdiction is in our <a href="/privacy#section-6">Privacy Policy, Section 6</a>. The rights include:</p>
+  <ul>
+    <li><strong>Access</strong> — request a copy of the personal data we hold about you.</li>
+    <li><strong>Correction</strong> — request correction of inaccurate or incomplete data.</li>
+    <li><strong>Deletion</strong> — request erasure of your data.</li>
+    <li><strong>Portability</strong> — receive your data in a structured, machine-readable format.</li>
+    <li><strong>Restriction</strong> — request that we limit processing in certain circumstances.</li>
+    <li><strong>Objection</strong> — object to processing based on legitimate interests.</li>
+    <li><strong>Withdraw consent</strong> — where processing is based on consent.</li>
+    <li><strong>Complaint</strong> — lodge a complaint with your local data protection authority.</li>
+  </ul>
+  <p>To exercise any of these rights, contact us at <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a>. We respond within 30 days, or sooner if required by applicable law. We may request identity verification before fulfilling sensitive requests.</p>
+
+  <h2 id="section-12">12. Responsible Disclosure</h2>
+  <p>If you discover a security vulnerability in Orbit Scanner, we appreciate responsible disclosure. Please report it to <a href="mailto:security@your-domain.com">security@your-domain.com</a> with:</p>
+  <ul>
+    <li>A description of the vulnerability.</li>
+    <li>Steps to reproduce it.</li>
+    <li>Potential impact.</li>
+    <li>Your contact information.</li>
+  </ul>
+  <p>We commit to:</p>
+  <ul>
+    <li>Acknowledging receipt within 72 hours.</li>
+    <li>Providing an initial assessment within 7 days.</li>
+    <li>Working with you in good faith to validate and remediate the issue.</li>
+    <li>Crediting researchers (with permission) in our security acknowledgments page.</li>
+    <li>Not pursuing legal action against researchers who follow this responsible disclosure process.</li>
+  </ul>
+
+  <h2 id="section-13">13. Contact Us</h2>
+  <p>For data protection inquiries, data subject requests, or audit-related questions, contact:</p>
+
+  <div class="contact-card">
+    <p><strong>Data Protection / Privacy:</strong></p>
+    <p>Email: <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a></p>
+    <p>Address: [Your Registered Address]</p>
+  </div>
+
+  <p style="margin-top: 16px;"><strong>Grievance Officer (India DPDP Act):</strong></p>
+  <div class="contact-card">
+    <p><strong>Name:</strong> [Grievance Officer Name]</p>
+    <p><strong>Email:</strong> <a href="mailto:grievance@your-domain.com">grievance@your-domain.com</a></p>
+  </div>
+
+  <p style="margin-top: 16px;"><strong>Security Vulnerability Disclosure:</strong></p>
+  <div class="contact-card">
+    <p><strong>Email:</strong> <a href="mailto:security@your-domain.com">security@your-domain.com</a></p>
+  </div>
+
+  <footer>
+    <p>&copy; [Year] [Your Company Name]. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms of Service</a> &nbsp;·&nbsp;
+      <a href="/">Home</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
