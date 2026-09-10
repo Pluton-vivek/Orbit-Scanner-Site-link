@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Your Account — Orbit Scanner</title>
+<meta name="description" content="Request deletion of your Orbit Scanner account and associated data. Submit a request online, without needing the app.">
+<meta name="robots" content="index, follow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+    color: #1f2937;
+    background: #ffffff;
+  }
+  .container { max-width: 680px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.doc-header { border-bottom: 2px solid #ede9fe; padding-bottom: 32px; margin-bottom: 32px; }
+  .brand {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #6d28d9; margin-bottom: 8px;
+  }
+  h1 { font-size: 30px; line-height: 1.2; font-weight: 700; color: #111827; margin-bottom: 12px; }
+  .lead { font-size: 17px; color: #374151; margin: 8px 0 0; }
+  h2 { font-size: 20px; font-weight: 700; color: #111827; margin: 36px 0 12px; }
+  p { margin-bottom: 14px; font-size: 16px; }
+  ul { margin: 0 0 16px 22px; }
+  li { margin-bottom: 8px; font-size: 16px; }
+  li strong { color: #111827; font-weight: 600; }
+  a { color: #6d28d9; text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: #4c1d95; }
+
+  .callout {
+    background: #f9fafb; border-left: 4px solid #6d28d9;
+    padding: 16px 20px; margin: 20px 0; border-radius: 4px; font-size: 15px;
+  }
+  .callout strong { color: #111827; }
+
+  .steps { counter-reset: step; list-style: none; margin: 0 0 16px; padding: 0; }
+  .steps li {
+    position: relative; padding-left: 40px; margin-bottom: 14px; font-size: 16px;
+  }
+  .steps li:before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: -2px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #ede9fe; color: #6d28d9;
+    font-size: 14px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* Form */
+  form { margin-top: 8px; }
+  .field { margin-bottom: 18px; }
+  label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+  label .req { color: #dc2626; }
+  input[type="text"], input[type="email"], select, textarea {
+    width: 100%; padding: 12px 14px; font-size: 16px; font-family: inherit;
+    color: #1f2937; background: #f9fafb;
+    border: 1px solid #e5e7eb; border-radius: 10px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: #6d28d9; background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(109,40,217,0.1);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  .hint { font-size: 13px; color: #6b7280; margin-top: 6px; }
+
+  .check-row { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; }
+  .check-row input { width: 18px; height: 18px; margin-top: 3px; flex-shrink: 0; }
+  .check-row label { font-weight: 400; font-size: 15px; color: #374151; margin: 0; }
+
+  .btn {
+    display: inline-block; width: 100%; text-align: center;
+    background: #6d28d9; color: #ffffff; border: none;
+    padding: 14px 20px; font-size: 16px; font-weight: 600; font-family: inherit;
+    border-radius: 10px; cursor: pointer; transition: background 0.15s;
+  }
+  .btn:hover { background: #5b21b6; }
+  .btn:disabled { background: #c4b5fd; cursor: not-allowed; }
+
+  .form-note { font-size: 13px; color: #6b7280; margin-top: 12px; text-align: center; }
+
+  .success {
+    display: none; background: #ecfdf5; border: 1px solid #a7f3d0;
+    color: #065f46; border-radius: 12px; padding: 20px; margin-top: 8px; font-size: 15px;
+  }
+  .success.show { display: block; }
+  .error-text { color: #dc2626; font-size: 13px; margin-top: 6px; display: none; }
+  .error-text.show { display: block; }
+
+  .contact-card {
+    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px;
+    padding: 20px; margin-top: 16px; font-size: 15px;
+  }
+  .contact-card p { margin-bottom: 6px; }
+
+  footer {
+    margin-top: 56px; padding-top: 32px; border-top: 1px solid #e5e7eb;
+    text-align: center; color: #9ca3af; font-size: 14px;
+  }
+  footer a { color: #6b7280; }
+
+  @media (max-width: 640px) {
+    .container { padding: 32px 18px 64px; }
+    h1 { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="doc-header">
+    <div class="brand">Orbit Scanner</div>
+    <h1>Delete Your Account</h1>
+    <p class="lead">Request deletion of your Orbit Scanner account and associated data — online, without needing the app.</p>
+  </header>
+
+  <p>Orbit Scanner is operated by <strong>PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED</strong>. You can delete your account directly inside the app, or submit a request using the form below and our team will process it.</p>
+
+  <h2>Fastest way: delete in the app</h2>
+  <p>If you can sign in to the app, this is the quickest method:</p>
+  <ol class="steps">
+    <li>Open Orbit Scanner and sign in with your registered account.</li>
+    <li>Go to <strong>Profile → Account</strong>.</li>
+    <li>Tap <strong>Delete Account</strong> at the bottom, review the details, and confirm.</li>
+  </ol>
+
+  <h2>What happens after you request deletion</h2>
+  <div class="callout">
+    Your account enters a <strong>30-day recovery period</strong>. If you log back into the app within 30 days, your account is restored automatically and the request is cancelled. If you do not, your account and associated personal data are <strong>permanently deleted</strong> at the end of the period.
+  </div>
+  <p><strong>What is deleted:</strong></p>
+  <ul>
+    <li>Your account and profile information (name, email).</li>
+    <li>Your credit and usage data.</li>
+    <li>Any account-associated data retained on our systems, except where the law requires us to keep it.</li>
+  </ul>
+  <p><strong>What is not affected:</strong> documents saved locally on your device (you manage those yourself), and documents sent for AI/OCR processing are already deleted from our servers within ~60 seconds of processing. See our <a href="/privacy#section-8">Privacy Policy</a> for full details.</p>
+
+  <h2>Request deletion online</h2>
+  <p>Use this form if you cannot access the app. For your security, submit it using the <strong>same email address registered with your Orbit Scanner account</strong> — requests from a different address may not be processed.</p>
+
+  <form id="delete-form" novalidate>
+    <div class="field">
+      <label for="name">Full name <span class="req">*</span></label>
+      <input type="text" id="name" name="name" autocomplete="name" required>
+      <div class="error-text" id="err-name">Please enter your name.</div>
+    </div>
+
+    <div class="field">
+      <label for="email">Registered account email <span class="req">*</span></label>
+      <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+      <div class="hint">Must match the email on your Orbit Scanner account.</div>
+      <div class="error-text" id="err-email">Please enter a valid email address.</div>
+    </div>
+
+    <div class="field">
+      <label for="reason">Reason for deletion (optional)</label>
+      <textarea id="reason" name="reason" placeholder="Optional — helps us improve."></textarea>
+    </div>
+
+    <div class="check-row">
+      <input type="checkbox" id="confirm" name="confirm">
+      <label for="confirm">I understand that after the 30-day recovery period my account and associated personal data will be permanently deleted and cannot be recovered. <span class="req">*</span></label>
+    </div>
+    <div class="error-text" id="err-confirm">Please confirm to continue.</div>
+
+    <button type="submit" class="btn" id="submit-btn">Submit deletion request</button>
+    <p class="form-note">Submitting opens your email app with the request pre-filled, addressed to our support team. Just press send.</p>
+  </form>
+
+  <div class="success" id="success">
+    <strong>Your email app should have opened with your request ready to send.</strong>
+    <p style="margin:10px 0 0;">If it didn&rsquo;t, please email <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a> from your registered address with the subject &ldquo;Account Deletion Request&rdquo; and include your name and registered email. We respond within 30 days (or sooner where required by law).</p>
+  </div>
+
+  <h2>Prefer email?</h2>
+  <p>You can also request deletion directly by emailing us from your registered address:</p>
+  <div class="contact-card">
+    <p><strong>Email:</strong> <a href="mailto:support@plutontechnology.com?subject=Account%20Deletion%20Request">support@plutontechnology.com</a></p>
+    <p><strong>Company:</strong> PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED</p>
+    <p><strong>Registered Office:</strong> Ward No. 02, Shantinagar, Bagbahara, Mahasamund, Chhattisgarh, India &ndash; 493449</p>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms of Service</a> &nbsp;·&nbsp;
+      <a href="/data-protection">Data Protection</a> &nbsp;·&nbsp;
+      <a href="https://www.plutontechnology.com/company">Home</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // ── Submission handling ──────────────────────────────────────────────
+  // Default: composes an email to support@ with the request details (no
+  // backend required). To capture submissions automatically instead, replace
+  // the body of sendRequest() with a fetch() POST to your endpoint, e.g. a
+  // Formspree form URL or a Google Apps Script web-app URL:
+  //
+  //   await fetch("https://formspree.io/f/XXXX", {
+  //     method: "POST",
+  //     headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  //     body: JSON.stringify({ name, email, reason })
+  //   });
+  //
+  const SUPPORT_EMAIL = "support@plutontechnology.com";
+
+  (function () {
+    var form = document.getElementById('delete-form');
+    var success = document.getElementById('success');
+
+    function setErr(id, show) {
+      document.getElementById(id).classList.toggle('show', show);
+    }
+    function validEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var reason = document.getElementById('reason').value.trim();
+      var confirmed = document.getElementById('confirm').checked;
+
+      var ok = true;
+      setErr('err-name', false); setErr('err-email', false); setErr('err-confirm', false);
+      if (!name) { setErr('err-name', true); ok = false; }
+      if (!validEmail(email)) { setErr('err-email', true); ok = false; }
+      if (!confirmed) { setErr('err-confirm', true); ok = false; }
+      if (!ok) return;
+
+      sendRequest(name, email, reason);
+    });
+
+    function sendRequest(name, email, reason) {
+      var subject = "Account Deletion Request";
+      var body =
+        "Account Deletion Request\n\n" +
+        "Name: " + name + "\n" +
+        "Registered email: " + email + "\n" +
+        "Reason: " + (reason || "(not provided)") + "\n\n" +
+        "I confirm I want my Orbit Scanner account and associated data deleted.";
+      var href = "mailto:" + SUPPORT_EMAIL +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+      window.location.href = href;
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  })();
+</script>
+</body>
+</html>
