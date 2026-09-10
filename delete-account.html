@@ -169,12 +169,12 @@
     <div class="error-text" id="err-confirm">Please confirm to continue.</div>
 
     <button type="submit" class="btn" id="submit-btn">Submit deletion request</button>
-    <p class="form-note">Submitting opens your email app with the request pre-filled, addressed to our support team. Just press send.</p>
+    <p class="form-note">We respond within 30 days, or sooner where required by law.</p>
   </form>
 
   <div class="success" id="success">
-    <strong>Your email app should have opened with your request ready to send.</strong>
-    <p style="margin:10px 0 0;">If it didn&rsquo;t, please email <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a> from your registered address with the subject &ldquo;Account Deletion Request&rdquo; and include your name and registered email. We respond within 30 days (or sooner where required by law).</p>
+    <strong>Your deletion request has been received.</strong>
+    <p style="margin:10px 0 0;">We&rsquo;ve logged your request and our team will process it. Your account enters a 30-day recovery period &mdash; log back into the app within 30 days to cancel the deletion. We respond within 30 days (or sooner where required by law). If you don&rsquo;t hear back, email <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a> from your registered address.</p>
   </div>
 
   <h2>Prefer email?</h2>
@@ -199,22 +199,17 @@
 
 <script>
   // ── Submission handling ──────────────────────────────────────────────
-  // Default: composes an email to support@ with the request details (no
-  // backend required). To capture submissions automatically instead, replace
-  // the body of sendRequest() with a fetch() POST to your endpoint, e.g. a
-  // Formspree form URL or a Google Apps Script web-app URL:
-  //
-  //   await fetch("https://formspree.io/f/XXXX", {
-  //     method: "POST",
-  //     headers: { "Accept": "application/json", "Content-Type": "application/json" },
-  //     body: JSON.stringify({ name, email, reason })
-  //   });
-  //
-  const SUPPORT_EMAIL = "support@plutontechnology.com";
+  // Submits the request to a Google Apps Script web app, which logs it to a
+  // Google Sheet and emails support@. We POST as text/plain to avoid a CORS
+  // preflight (Apps Script reads the raw body in e.postData.contents). If the
+  // request fails (offline/endpoint down), we fall back to opening an email.
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwsZLIe-OPOFx08_bGWIB3desw26WaRdBj5vsYV9tRsU5jrutVLs2i51-cFmIEgb04j/exec";
+  var SUPPORT_EMAIL = "support@plutontechnology.com";
 
   (function () {
     var form = document.getElementById('delete-form');
     var success = document.getElementById('success');
+    var btn = document.getElementById('submit-btn');
 
     function setErr(id, show) {
       document.getElementById(id).classList.toggle('show', show);
@@ -240,20 +235,49 @@
       sendRequest(name, email, reason);
     });
 
-    function sendRequest(name, email, reason) {
-      var subject = "Account Deletion Request";
+    function showSuccess() {
+      form.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function emailFallback(name, email, reason) {
       var body =
         "Account Deletion Request\n\n" +
         "Name: " + name + "\n" +
         "Registered email: " + email + "\n" +
         "Reason: " + (reason || "(not provided)") + "\n\n" +
         "I confirm I want my Orbit Scanner account and associated data deleted.";
-      var href = "mailto:" + SUPPORT_EMAIL +
-        "?subject=" + encodeURIComponent(subject) +
+      window.location.href = "mailto:" + SUPPORT_EMAIL +
+        "?subject=" + encodeURIComponent("Account Deletion Request") +
         "&body=" + encodeURIComponent(body);
-      window.location.href = href;
-      success.classList.add('show');
-      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function sendRequest(name, email, reason) {
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ name: name, email: email, reason: reason })
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data && data.ok) {
+          showSuccess();
+        } else {
+          throw new Error((data && data.error) || "Request failed");
+        }
+      })
+      .catch(function () {
+        // Network/endpoint problem — fall back to email so the request isn't lost.
+        emailFallback(name, email, reason);
+        showSuccess();
+      })
+      .then(function () {
+        btn.disabled = false;
+        btn.textContent = "Submit deletion request";
+      });
     }
   })();
 </script>
