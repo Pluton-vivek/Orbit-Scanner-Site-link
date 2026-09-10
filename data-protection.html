@@ -103,7 +103,7 @@
   <header class="doc-header">
     <div class="brand">Orbit Scanner</div>
     <h1>Data Protection</h1>
-    <p class="meta"><strong>Effective Date:</strong> [Date] &nbsp;·&nbsp; <strong>Last Updated:</strong> [Date]</p>
+    <p class="meta"><strong>Effective Date:</strong> September 10, 2026 &nbsp;·&nbsp; <strong>Last Updated:</strong> September 10, 2026</p>
   </header>
 
   <nav class="toc" aria-label="Table of contents">
@@ -118,14 +118,14 @@
       <li><a href="#section-7">International Data Transfers</a></li>
       <li><a href="#section-8">Data Retention &amp; Deletion</a></li>
       <li><a href="#section-9">Incident Response</a></li>
-      <li><a href="#section-10">Compliance &amp; Audits</a></li>
+      <li><a href="#section-10">Compliance</a></li>
       <li><a href="#section-11">Your Rights as a Data Subject</a></li>
       <li><a href="#section-12">Responsible Disclosure</a></li>
       <li><a href="#section-13">Contact Us</a></li>
     </ol>
   </nav>
 
-  <p class="lead">This Data Protection document describes the technical and organizational measures (TOMs) that [Your Company Name] implements to protect personal data processed through Orbit Scanner. It supplements our <a href="/privacy">Privacy Policy</a> and provides additional transparency for users, business partners, regulators, and auditors who require detail on our security and data protection practices.</p>
+  <p class="lead">This Data Protection document describes the technical and organizational measures (TOMs) that PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED implements to protect personal data processed through Orbit Scanner. It supplements our <a href="/privacy">Privacy Policy</a> and provides additional transparency for users, business partners, regulators, and auditors who require detail on our security and data protection practices.</p>
 
   <p>This document is maintained in accordance with the GDPR (Article 32), India DPDP Act, CCPA/CPRA, UK GDPR, LGPD, and ISO/IEC 27001-aligned principles.</p>
 
@@ -136,7 +136,7 @@
     <li><strong>Data minimization.</strong> We collect only what we need to provide and improve the service.</li>
     <li><strong>Purpose limitation.</strong> Data collected for one purpose is not repurposed without explicit user consent.</li>
     <li><strong>Storage limitation.</strong> We delete data as soon as it is no longer needed for its original purpose.</li>
-    <li><strong>Integrity and confidentiality.</strong> All data is encrypted in transit and at rest.</li>
+    <li><strong>Integrity and confidentiality.</strong> Data is encrypted in transit and at rest.</li>
     <li><strong>Accountability.</strong> We maintain records of processing activities and respond to data subject requests within statutory timelines.</li>
     <li><strong>No data monetization.</strong> We do not sell data, share it for advertising, or train AI models on user content.</li>
   </ul>
@@ -151,58 +151,55 @@
 
   <h3>What this means in practice</h3>
   <ul>
-    <li><strong>Server-side delete is automatic and audited.</strong> Cleanup jobs run continuously. Storage buckets used for processing have automatic lifecycle policies that delete objects after each job completes.</li>
+    <li><strong>Server-side delete is automatic.</strong> Storage used for processing has automatic lifecycle policies that delete objects after each job completes.</li>
     <li><strong>No content in logs.</strong> Server processing logs record operation type, duration, file size, and status code only. Document content, OCR output, and file bytes are never logged.</li>
-    <li><strong>Sub-processors are contractually bound.</strong> Our AI/OCR providers operate under Data Processing Agreements (DPAs) that prohibit retention, training on customer data, or any secondary use.</li>
-    <li><strong>On-device processing is preferred where possible.</strong> Edge detection, image cropping, filters, and basic OCR can run entirely on-device.</li>
+    <li><strong>Sub-processors are contractually bound.</strong> Our AI/OCR provider operates under a Data Processing Agreement (DPA) that prohibits retention, training on customer data, or any secondary use.</li>
+    <li><strong>On-device processing is preferred where possible.</strong> Edge detection, image cropping, and filters run entirely on-device.</li>
   </ul>
 
-  <h3>Cloud Sync (Pro feature) is different</h3>
-  <p>If you enable Cloud Sync as a Pro subscriber, your documents are stored in encrypted cloud storage to enable cross-device access. This is opt-in. You can disable Cloud Sync at any time. Upon disabling, your cloud-stored copies are deleted within 90 days. See Section 8 for full retention details.</p>
+  <p>Orbit Scanner does not currently offer a Cloud Sync feature. Scanned documents and signatures are stored locally on your device and are not uploaded to our servers except for the ephemeral AI/OCR processing described above.</p>
 
   <h2 id="section-3">3. Encryption Standards</h2>
 
   <h3>3.1 Encryption in Transit</h3>
   <ul>
     <li>All network communication between the App and our backend uses <strong>TLS 1.2 or higher</strong>.</li>
-    <li>The Android app explicitly blocks cleartext traffic (<code>android:usesCleartextTraffic=&quot;false&quot;</code>).</li>
-    <li>iOS App Transport Security (ATS) is enforced.</li>
+    <li>The Android app blocks cleartext traffic (<code>android:usesCleartextTraffic=&quot;false&quot;</code>).</li>
     <li>Server-side TLS configuration disables deprecated protocols and weak ciphers.</li>
-    <li>Certificate pinning is implemented for critical API endpoints to defend against man-in-the-middle attacks.</li>
   </ul>
 
   <h3>3.2 Encryption at Rest</h3>
   <ul>
-    <li><strong>Backend databases:</strong> PostgreSQL with AES-256 Transparent Data Encryption.</li>
-    <li><strong>Cloud storage (S3):</strong> All buckets use SSE-S3 server-side encryption with AES-256.</li>
-    <li><strong>On-device sensitive data:</strong> Authentication tokens, subscription state, and user profile cache are stored using AndroidX EncryptedSharedPreferences (Android) or iOS Keychain Services. Encryption keys are managed by the platform&rsquo;s hardware-backed keystore.</li>
+    <li><strong>Backend data:</strong> Personal data stored on our backend is encrypted at rest using AES-256.</li>
+    <li><strong>Cloud processing storage:</strong> Storage used for ephemeral AI/OCR processing uses server-side encryption (AES-256) and lifecycle policies that delete objects after each job.</li>
+    <li><strong>On-device sensitive data:</strong> Authentication tokens and user profile cache are stored using AndroidX EncryptedSharedPreferences, with encryption keys managed by the platform&rsquo;s hardware-backed keystore.</li>
     <li><strong>Scanned documents on device:</strong> Stored in app-private storage (sandboxed; not accessible to other apps without root).</li>
   </ul>
 
   <h3>3.3 Secrets Management</h3>
-  <p>API keys, database credentials, and third-party tokens are never hardcoded in the App or backend source code. Secrets are stored in environment variables and managed by a secrets manager (e.g., AWS Secrets Manager). Build-time secrets are injected via CI/CD pipelines from secured vaults.</p>
+  <p>API keys, database credentials, and third-party tokens are not hardcoded in the App or backend source code. Secrets are stored as environment variables or in a dedicated secrets manager, and build-time secrets are injected via secured CI/CD pipelines.</p>
 
   <h2 id="section-4">4. Access Controls</h2>
   <ul>
-    <li><strong>Principle of least privilege.</strong> Backend services and personnel have access only to the systems and data they need to perform their function. Database users have only the SQL grants required for their service; no superuser access in production code.</li>
-    <li><strong>Multi-factor authentication.</strong> All personnel with access to production systems use MFA via hardware-backed tokens or authenticator apps.</li>
-    <li><strong>SSH key-based access.</strong> Password-based SSH is disabled on all production hosts. Access requires individual SSH keys rotated regularly.</li>
-    <li><strong>Audit logging.</strong> All administrative actions on production systems are logged to an append-only audit trail.</li>
-    <li><strong>Environment separation.</strong> Development, staging, and production environments are fully isolated. Production data is never copied to dev/staging; staging uses synthetic data.</li>
+    <li><strong>Principle of least privilege.</strong> Backend services and personnel have access only to the systems and data they need to perform their function.</li>
+    <li><strong>Multi-factor authentication.</strong> Access to production systems requires multi-factor authentication.</li>
+    <li><strong>Key-based server access.</strong> Administrative access to production hosts uses individual keys rather than shared passwords.</li>
+    <li><strong>Audit logging.</strong> Administrative actions on production systems are logged.</li>
+    <li><strong>Environment separation.</strong> Development, staging, and production environments are isolated. Production data is not copied to development or staging.</li>
   </ul>
 
   <h2 id="section-5">5. Authentication &amp; Sessions</h2>
   <ul>
-    <li><strong>Google Sign-In (OAuth 2.0).</strong> Primary authentication via Google Sign-In using the OAuth 2.0 Authorization Code flow. Tokens are validated server-side against Google&rsquo;s public keys. Minimal scopes requested: <code>openid</code>, <code>email</code>, <code>profile</code>.</li>
-    <li><strong>Password hashing.</strong> Where email/password authentication is offered, passwords are hashed using bcrypt with a cost factor of 12 before storage. Plaintext passwords are never stored.</li>
-    <li><strong>Access tokens.</strong> JWTs with a 1-hour expiry, signed using strong asymmetric keys.</li>
-    <li><strong>Refresh tokens.</strong> 7-day expiry with rotation — the old refresh token is invalidated on each use to defeat replay attacks.</li>
-    <li><strong>Session invalidation.</strong> All sessions invalidated on password change or account suspension.</li>
-    <li><strong>Brute-force protection.</strong> Login attempts rate-limited to 5 per minute per IP and 10 per minute per account. Exponential backoff after failures. Account lockout after 10 consecutive failures (30-minute cooldown).</li>
+    <li><strong>Google Sign-In (OAuth 2.0).</strong> Primary authentication is via Google Sign-In using the OAuth 2.0 Authorization Code flow. Tokens are validated server-side against Google&rsquo;s public keys. Minimal scopes are requested: <code>openid</code>, <code>email</code>, <code>profile</code>.</li>
+    <li><strong>Password hashing.</strong> Where email/password authentication is offered, passwords are hashed using a strong, salted algorithm (bcrypt) before storage. Plaintext passwords are never stored.</li>
+    <li><strong>Access tokens.</strong> Short-lived access tokens (JWTs) signed using strong keys.</li>
+    <li><strong>Refresh tokens.</strong> Refresh tokens are rotated on use to reduce the impact of token theft.</li>
+    <li><strong>Session invalidation.</strong> Sessions are invalidated on password change or account suspension.</li>
+    <li><strong>Brute-force protection.</strong> Login attempts are rate-limited, with backoff and temporary lockout after repeated failures.</li>
   </ul>
 
   <h2 id="section-6">6. Sub-Processors</h2>
-  <p>We use a limited set of trusted sub-processors to provide the App. Each sub-processor operates under a Data Processing Agreement (DPA) that includes confidentiality obligations, data protection commitments, and (for cross-border transfers) Standard Contractual Clauses.</p>
+  <p>We use a limited set of trusted sub-processors to provide the App. Each sub-processor operates under a Data Processing Agreement (DPA) that includes confidentiality obligations, data protection commitments, and (for cross-border transfers) Standard Contractual Clauses where applicable.</p>
 
   <table>
     <thead>
@@ -216,36 +213,24 @@
         <td>USA / EU</td>
       </tr>
       <tr>
-        <td><strong>RevenueCat</strong></td>
-        <td>Subscription management and entitlement validation</td>
-        <td>Anonymized user ID, subscription state, purchase receipts</td>
-        <td>USA</td>
-      </tr>
-      <tr>
-        <td><strong>Amazon Web Services (S3)</strong></td>
-        <td>Encrypted cloud storage for Pro Cloud Sync</td>
-        <td>User-uploaded documents (opt-in only)</td>
-        <td>Asia-Pacific / EU</td>
-      </tr>
-      <tr>
-        <td><strong>[AI/OCR Provider]</strong></td>
+        <td><strong>AI/OCR Provider</strong> (third-party)</td>
         <td>Cloud OCR, translation, layout analysis, document conversion</td>
         <td>Ephemeral: document content for processing only, deleted immediately after</td>
-        <td>[Region]</td>
+        <td>Disclosed on request</td>
       </tr>
       <tr>
-        <td><strong>Google Play Billing</strong></td>
-        <td>Payment processing for Android subscriptions</td>
-        <td>Payment data handled entirely by Google. We receive only receipt and status.</td>
-        <td>Per Google&rsquo;s infrastructure</td>
+        <td><strong>Cloud hosting provider</strong></td>
+        <td>Backend hosting, account data, and ephemeral processing storage</td>
+        <td>Account data; ephemeral document data during processing</td>
+        <td>India / USA</td>
       </tr>
     </tbody>
   </table>
 
-  <p>We publish updates to this sub-processor list within 30 days of any material change. For an authoritative current list, contact us at the address below.</p>
+  <p>We publish updates to this sub-processor list within a reasonable time of any material change. For the current authoritative list, contact us at the address below.</p>
 
   <h2 id="section-7">7. International Data Transfers</h2>
-  <p>Personal data may be transferred to and processed in countries other than your country of residence, including India and the United States. When we transfer data internationally, we ensure appropriate safeguards:</p>
+  <p>Personal data may be transferred to and processed in countries other than your country of residence, including India and the United States. When we transfer data internationally, we apply appropriate safeguards:</p>
   <ul>
     <li><strong>EU/EEA transfers:</strong> Standard Contractual Clauses (SCCs) approved by the European Commission.</li>
     <li><strong>UK transfers:</strong> UK International Data Transfer Agreement (IDTA) or SCCs with the UK Addendum.</li>
@@ -264,17 +249,17 @@
       <tr>
         <td><strong>Account data</strong> (name, email, profile)</td>
         <td>Active account lifetime</td>
-        <td>Permanently deleted within 30 days of account deletion request</td>
+        <td>On deletion request, a 30-day recovery period applies; if not restored, permanently deleted at the end of that period</td>
+      </tr>
+      <tr>
+        <td><strong>Credit and usage data</strong></td>
+        <td>Active account lifetime</td>
+        <td>Deleted with account data on permanent deletion</td>
       </tr>
       <tr>
         <td><strong>Cloud-processed documents</strong> (AI/OCR)</td>
         <td>Ephemeral (under 60 seconds)</td>
         <td>Auto-deleted server-side immediately after processing completes</td>
-      </tr>
-      <tr>
-        <td><strong>Cloud-synced documents</strong> (Pro)</td>
-        <td>While Pro subscription is active</td>
-        <td>Retained for 90 days after downgrade/cancellation, then permanently deleted</td>
       </tr>
       <tr>
         <td><strong>Analytics data (linkable)</strong></td>
@@ -293,13 +278,13 @@
       </tr>
       <tr>
         <td><strong>Support communications</strong></td>
-        <td>24 months after resolution</td>
-        <td>Auto-deleted from support system</td>
+        <td>Up to 24 months after resolution</td>
+        <td>Deleted from support system</td>
       </tr>
       <tr>
         <td><strong>Authentication tokens</strong></td>
-        <td>1 hour access, 7 days refresh</td>
-        <td>Cleared on logout or expiry; rotated on each refresh</td>
+        <td>Short-lived; refresh rotated on use</td>
+        <td>Cleared on logout or expiry</td>
       </tr>
       <tr>
         <td><strong>Locally stored documents</strong></td>
@@ -309,38 +294,36 @@
     </tbody>
   </table>
 
-  <p>If you wish to delete your account and associated data, you can do so via Profile → Security → Delete Account in the App, or by emailing <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a>.</p>
+  <p>You can delete your account and associated data from within the App (Profile → Account → Delete Account). The full deletion process, including the 30-day recovery period, is described in our <a href="/privacy#section-8">Privacy Policy, Section 8</a>. For assistance, email <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a>.</p>
 
   <h2 id="section-9">9. Incident Response</h2>
-  <p>We maintain a documented incident response process to handle suspected or actual data security incidents. The process follows a standard sequence:</p>
+  <p>We maintain an incident response process to handle suspected or actual data security incidents. The process follows a standard sequence:</p>
   <ul>
-    <li><strong>Detect.</strong> Continuous monitoring of backend systems, authentication patterns, and unusual API activity. Automated alerts route to an on-call engineer.</li>
-    <li><strong>Contain.</strong> Affected systems isolated. Compromised credentials rotated immediately. Affected user sessions invalidated.</li>
-    <li><strong>Eradicate.</strong> Root cause identified and remediated. Vulnerabilities patched.</li>
-    <li><strong>Notify.</strong> If the incident involves personal data and meets the notification threshold, affected users and regulators are notified within <strong>72 hours</strong> in accordance with GDPR Article 33, DPDP, and other applicable laws.</li>
-    <li><strong>Recover.</strong> Services restored. Affected users supported with remediation steps.</li>
-    <li><strong>Review.</strong> Post-mortem within 7 days. Lessons applied to prevent recurrence.</li>
+    <li><strong>Detect.</strong> Monitoring of backend systems, authentication patterns, and unusual API activity.</li>
+    <li><strong>Contain.</strong> Affected systems are isolated, compromised credentials rotated, and affected user sessions invalidated.</li>
+    <li><strong>Eradicate.</strong> Root cause identified and remediated; vulnerabilities patched.</li>
+    <li><strong>Notify.</strong> If an incident involves personal data and meets the notification threshold, affected users and regulators are notified without undue delay and, where applicable, within <strong>72 hours</strong> in accordance with GDPR Article 33, the DPDP Act, and other applicable laws.</li>
+    <li><strong>Recover.</strong> Services are restored and affected users supported with remediation steps.</li>
+    <li><strong>Review.</strong> A post-incident review is conducted and lessons applied to prevent recurrence.</li>
   </ul>
 
   <h3>Backups &amp; Disaster Recovery</h3>
   <ul>
-    <li><strong>Automated daily backups</strong> of PostgreSQL with point-in-time recovery via WAL archiving.</li>
-    <li>Backups are encrypted and stored in a separate region from primary infrastructure.</li>
-    <li><strong>Monthly restore tests</strong> verify backups are valid and recovery procedures work.</li>
-    <li><strong>Recovery Time Objective (RTO):</strong> 4 hours.</li>
-    <li><strong>Recovery Point Objective (RPO):</strong> 1 hour.</li>
+    <li>Automated backups of backend data with the ability to restore to a recent point in time.</li>
+    <li>Backups are encrypted.</li>
+    <li>Restore procedures are tested periodically to verify that backups are valid.</li>
   </ul>
 
-  <h2 id="section-10">10. Compliance &amp; Audits</h2>
+  <h2 id="section-10">10. Compliance</h2>
   <ul>
-    <li><strong>GDPR (EU/EEA):</strong> We process personal data in accordance with the GDPR. Our Data Processing Agreement with sub-processors includes SCCs for cross-border transfers.</li>
-    <li><strong>UK GDPR:</strong> Compliance maintained with UK GDPR and Data Protection Act 2018.</li>
-    <li><strong>India DPDP Act, 2023:</strong> A Grievance Officer is appointed and contactable in-app and via email (see Section 13). Data Protection Board complaints are honored.</li>
+    <li><strong>GDPR (EU/EEA):</strong> We process personal data in accordance with the GDPR, and our agreements with sub-processors include SCCs for cross-border transfers where applicable.</li>
+    <li><strong>UK GDPR:</strong> Compliance maintained with UK GDPR and the Data Protection Act 2018.</li>
+    <li><strong>India DPDP Act, 2023:</strong> A Grievance Officer is appointed and contactable via email (see Section 13). Data Protection Board complaints are honored.</li>
     <li><strong>CCPA/CPRA (California):</strong> We do not sell personal information as defined by the CCPA/CPRA.</li>
     <li><strong>LGPD (Brazil):</strong> Compliance with LGPD obligations for users in Brazil.</li>
-    <li><strong>Google Play policies:</strong> Data Safety form completed and consistent with this policy. Account deletion mechanism provided in-app and via the web.</li>
-    <li><strong>Annual security review:</strong> Independent third-party security audit (penetration test + code review) is conducted annually. Critical findings are remediated within 30 days.</li>
-    <li><strong>Vulnerability management:</strong> Dependencies are scanned weekly via automated tooling. Critical CVEs are patched within 48 hours.</li>
+    <li><strong>Google Play policies:</strong> Our Data Safety declaration is completed and kept consistent with this policy, and an account deletion mechanism is provided in-app and documented on our website.</li>
+    <li><strong>Security reviews:</strong> We conduct security reviews of the App and backend and address identified issues on a risk-prioritized basis.</li>
+    <li><strong>Vulnerability management:</strong> Dependencies are reviewed regularly and security-relevant updates are applied promptly.</li>
   </ul>
 
   <h2 id="section-11">11. Your Rights as a Data Subject</h2>
@@ -355,10 +338,10 @@
     <li><strong>Withdraw consent</strong> — where processing is based on consent.</li>
     <li><strong>Complaint</strong> — lodge a complaint with your local data protection authority.</li>
   </ul>
-  <p>To exercise any of these rights, contact us at <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a>. We respond within 30 days, or sooner if required by applicable law. We may request identity verification before fulfilling sensitive requests.</p>
+  <p>To exercise any of these rights, contact us at <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a>. We respond within 30 days, or sooner if required by applicable law. We may request identity verification before fulfilling sensitive requests.</p>
 
   <h2 id="section-12">12. Responsible Disclosure</h2>
-  <p>If you discover a security vulnerability in Orbit Scanner, we appreciate responsible disclosure. Please report it to <a href="mailto:security@your-domain.com">security@your-domain.com</a> with:</p>
+  <p>If you discover a security vulnerability in Orbit Scanner, we appreciate responsible disclosure. Please report it to <a href="mailto:developers@plutontechnology.com">developers@plutontechnology.com</a> with:</p>
   <ul>
     <li>A description of the vulnerability.</li>
     <li>Steps to reproduce it.</li>
@@ -367,10 +350,9 @@
   </ul>
   <p>We commit to:</p>
   <ul>
-    <li>Acknowledging receipt within 72 hours.</li>
-    <li>Providing an initial assessment within 7 days.</li>
+    <li>Acknowledging receipt in a timely manner.</li>
     <li>Working with you in good faith to validate and remediate the issue.</li>
-    <li>Crediting researchers (with permission) in our security acknowledgments page.</li>
+    <li>Crediting researchers (with permission) once the issue is resolved.</li>
     <li>Not pursuing legal action against researchers who follow this responsible disclosure process.</li>
   </ul>
 
@@ -379,23 +361,25 @@
 
   <div class="contact-card">
     <p><strong>Data Protection / Privacy:</strong></p>
-    <p>Email: <a href="mailto:privacy@your-domain.com">privacy@your-domain.com</a></p>
-    <p>Address: [Your Registered Address]</p>
+    <p>Company: PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED</p>
+    <p>Email: <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a></p>
+    <p>Website: <a href="https://www.plutontechnology.com/">www.plutontechnology.com</a></p>
+    <p>Registered Office: Ward No. 02, Shantinagar, Bagbahara, Mahasamund, Chhattisgarh, India &ndash; 493449</p>
   </div>
 
   <p style="margin-top: 16px;"><strong>Grievance Officer (India DPDP Act):</strong></p>
   <div class="contact-card">
-    <p><strong>Name:</strong> [Grievance Officer Name]</p>
-    <p><strong>Email:</strong> <a href="mailto:grievance@your-domain.com">grievance@your-domain.com</a></p>
+    <p><strong>Name:</strong> Vivek Sahu</p>
+    <p><strong>Email:</strong> <a href="mailto:support@plutontechnology.com">support@plutontechnology.com</a></p>
   </div>
 
   <p style="margin-top: 16px;"><strong>Security Vulnerability Disclosure:</strong></p>
   <div class="contact-card">
-    <p><strong>Email:</strong> <a href="mailto:security@your-domain.com">security@your-domain.com</a></p>
+    <p><strong>Email:</strong> <a href="mailto:developers@plutontechnology.com">developers@plutontechnology.com</a></p>
   </div>
 
   <footer>
-    <p>&copy; [Year] [Your Company Name]. All rights reserved.</p>
+    <p>&copy; 2026 PLUTON TECHNOLOGIES (OPC) PRIVATE LIMITED. All rights reserved.</p>
     <p style="margin-top: 8px;">
       <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
       <a href="/terms">Terms of Service</a> &nbsp;·&nbsp;
