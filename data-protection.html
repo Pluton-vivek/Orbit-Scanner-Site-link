@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data Protection — Orbit Scanner</title>
-<meta name="description" content="Orbit Scanner Data Protection Policy. Technical and organizational measures we take to protect your data, including ephemeral cloud processing, encryption, and incident response.">
+<meta name="description" content="Orbit Scanner Data Protection Policy. Technical and organizational measures we take to protect your data, including short-lived cloud processing, encryption, and incident response.">
 <meta name="robots" content="index, follow">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -110,7 +110,7 @@
     <div class="toc-title">Contents</div>
     <ol>
       <li><a href="#section-1">Our Approach to Data Protection</a></li>
-      <li><a href="#section-2">Ephemeral Cloud Processing</a></li>
+      <li><a href="#section-2">Cloud Processing &amp; Retention</a></li>
       <li><a href="#section-3">Encryption Standards</a></li>
       <li><a href="#section-4">Access Controls</a></li>
       <li><a href="#section-5">Authentication &amp; Sessions</a></li>
@@ -141,23 +141,23 @@
     <li><strong>No data monetization.</strong> We do not sell data, share it for advertising, or train AI models on user content.</li>
   </ul>
 
-  <h2 id="section-2">2. Ephemeral Cloud Processing</h2>
+  <h2 id="section-2">2. Cloud Processing &amp; Retention</h2>
 
   <div class="feature-callout">
-    <div class="label">Our Architecture Choice</div>
-    <h3>Documents you send to the cloud are deleted within 60 seconds.</h3>
-    <p>When you use AI/OCR features (Layout OCR, Translate, To Word, Enhance, Extract Tables), your document is transmitted to our processing servers, processed by our AI/OCR provider, and deleted from our infrastructure immediately after the result is returned to you. We do not cache, log, archive, or retain copies. Our systems are designed to be incapable of long-term retention.</p>
+    <div class="label">Our Approach</div>
+    <h3>Cloud data is kept only briefly, then automatically deleted.</h3>
+    <p>When you use AI/OCR features (Layout OCR, Translate, To Word, Enhance, Extract Tables), your document is transmitted to our processing servers, processed by our AI/OCR provider, and the result is returned to you. Your uploaded files and generated results are retained only for a short, fixed period — from 24 hours up to 7 days depending on the data type (see Section 8) — and are then automatically deleted. We do not use your content for AI model training, and after account deletion we do not keep related data.</p>
   </div>
 
   <h3>What this means in practice</h3>
   <ul>
-    <li><strong>Server-side delete is automatic.</strong> Storage used for processing has automatic lifecycle policies that delete objects after each job completes.</li>
+    <li><strong>Server-side delete is automatic.</strong> Storage used for processing has automatic lifecycle policies that delete objects at the end of their retention period (see Section 8).</li>
     <li><strong>No content in logs.</strong> Server processing logs record operation type, duration, file size, and status code only. Document content, OCR output, and file bytes are never logged.</li>
     <li><strong>Sub-processors are contractually bound.</strong> Our AI/OCR provider operates under a Data Processing Agreement (DPA) that prohibits retention, training on customer data, or any secondary use.</li>
     <li><strong>On-device processing is preferred where possible.</strong> Edge detection, image cropping, and filters run entirely on-device.</li>
   </ul>
 
-  <p>Orbit Scanner does not currently offer a Cloud Sync feature. Scanned documents and signatures are stored locally on your device and are not uploaded to our servers except for the ephemeral AI/OCR processing described above.</p>
+  <p>Orbit Scanner does not currently offer a Cloud Sync feature. Scanned documents and signatures are stored locally on your device and are not uploaded to our servers except for the short-lived AI/OCR processing described above.</p>
 
   <h2 id="section-3">3. Encryption Standards</h2>
 
@@ -171,7 +171,7 @@
   <h3>3.2 Encryption at Rest</h3>
   <ul>
     <li><strong>Backend data:</strong> Personal data stored on our backend is encrypted at rest using AES-256.</li>
-    <li><strong>Cloud processing storage:</strong> Storage used for ephemeral AI/OCR processing uses server-side encryption (AES-256) and lifecycle policies that delete objects after each job.</li>
+    <li><strong>Cloud processing storage:</strong> Storage used for temporary AI/OCR processing uses server-side encryption (AES-256) and lifecycle policies that delete objects at the end of their retention period (see Section 8).</li>
     <li><strong>On-device sensitive data:</strong> Authentication tokens and user profile cache are stored using AndroidX EncryptedSharedPreferences, with encryption keys managed by the platform&rsquo;s hardware-backed keystore.</li>
     <li><strong>Scanned documents on device:</strong> Stored in app-private storage (sandboxed; not accessible to other apps without root).</li>
   </ul>
@@ -215,13 +215,13 @@
       <tr>
         <td><strong>AI/OCR Provider</strong> (third-party)</td>
         <td>Cloud OCR, translation, layout analysis, document conversion</td>
-        <td>Ephemeral: document content for processing only, deleted immediately after</td>
+        <td>Document content for processing only, deleted after a short retention period</td>
         <td>Disclosed on request</td>
       </tr>
       <tr>
         <td><strong>Cloud hosting provider</strong></td>
-        <td>Backend hosting, account data, and ephemeral processing storage</td>
-        <td>Account data; ephemeral document data during processing</td>
+        <td>Backend hosting, account data, and temporary processing storage</td>
+        <td>Account data; temporary document data during processing</td>
         <td>India / USA</td>
       </tr>
     </tbody>
@@ -257,9 +257,29 @@
         <td>Deleted with account data on permanent deletion</td>
       </tr>
       <tr>
-        <td><strong>Cloud-processed documents</strong> (AI/OCR)</td>
-        <td>Ephemeral (under 60 seconds)</td>
-        <td>Auto-deleted server-side immediately after processing completes</td>
+        <td><strong>Uploaded images / PDFs</strong> (AI/OCR input)</td>
+        <td>48 hours</td>
+        <td>Auto-deleted at the end of the retention window</td>
+      </tr>
+      <tr>
+        <td><strong>Rendered preview pages</strong></td>
+        <td>24 hours</td>
+        <td>Auto-deleted at the end of the retention window</td>
+      </tr>
+      <tr>
+        <td><strong>Extracted text &amp; layout</strong> (IR)</td>
+        <td>7 days</td>
+        <td>Auto-deleted at the end of the retention window</td>
+      </tr>
+      <tr>
+        <td><strong>Generated files</strong> (DOCX, PDF, HTML, TXT)</td>
+        <td>7 days</td>
+        <td>Auto-deleted at the end of the retention window</td>
+      </tr>
+      <tr>
+        <td><strong>Job records</strong> (status, filename, page count)</td>
+        <td>7 days</td>
+        <td>Auto-deleted at the end of the retention window</td>
       </tr>
       <tr>
         <td><strong>Analytics data (linkable)</strong></td>

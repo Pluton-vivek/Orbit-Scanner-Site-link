@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Orbit Scanner</title>
-<meta name="description" content="Orbit Scanner Privacy Policy. GDPR, India DPDP, CCPA/CPRA, UK GDPR, and LGPD compliant. Free Android app that processes documents ephemerally and never sells your data.">
+<meta name="description" content="Orbit Scanner Privacy Policy. GDPR, India DPDP, CCPA/CPRA, UK GDPR, and LGPD compliant. Free Android app with short, fixed data retention that never sells your data.">
 <meta name="robots" content="index, follow">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -178,7 +178,7 @@
     <li><strong>Support Communications:</strong> If you contact us for support, we collect the content of your message, your email address, and any attachments you provide.</li>
     <li><strong>Documents and Signatures:</strong>
       <ol>
-        <li>When you upload or import a document in the App to perform an operation, the document is stored locally on your device by default and is not uploaded to our servers, except where you use a cloud-based AI/OCR feature (see Section 2), in which case it is processed ephemerally and then deleted.</li>
+        <li>When you upload or import a document in the App to perform an operation, the document is stored locally on your device by default and is not uploaded to our servers, except where you use a cloud-based AI/OCR feature (see Section 2), in which case it is processed and then automatically deleted after a short retention period (see Section 5).</li>
         <li>When you use the eSign feature, you create or upload a signature image. Signatures are stored locally on your device and are never uploaded to our servers.</li>
       </ol>
     </li>
@@ -208,7 +208,7 @@
   <p>We use the information we collect for the following purposes:</p>
   <ul>
     <li><strong>Provide and maintain the App:</strong> Enable scanning, file management, PDF tools, AI/OCR processing, and eSign.</li>
-    <li><strong>Cloud-based AI/OCR Processing:</strong> When you use AI-powered features (Layout OCR, Translate, To Word, Enhance, Extract Tables), your document is transmitted to our secure cloud servers for processing by third-party AI/OCR service providers. Processing is ephemeral — your document is deleted from our servers immediately after the operation completes, and is not retained, cached, or used for model training.</li>
+    <li><strong>Cloud-based AI/OCR Processing:</strong> When you use AI-powered features (Layout OCR, Translate, To Word, Enhance, Extract Tables), your document is transmitted to our secure cloud servers for processing by third-party AI/OCR service providers. Your uploaded files and the generated results are retained only for a short, fixed period so we can deliver the output and let you re-download it, and are then automatically deleted (see Section 5). They are not used for AI model training.</li>
     <li><strong>Usage and credit management:</strong> Maintain your usage-credit balance and enforce fair-use limits on AI/OCR features.</li>
     <li><strong>Analytics and improvement:</strong> Understand usage patterns, identify bugs, and improve app performance and features.</li>
     <li><strong>Customer support:</strong> Respond to your inquiries and resolve issues.</li>
@@ -230,7 +230,7 @@
 
   <h3>4.1 Service Providers</h3>
   <ul>
-    <li><strong>Cloud AI/OCR Providers:</strong> Documents submitted for AI/OCR processing are transmitted to our third-party AI service providers. These providers process your data solely on our behalf, under contractual obligations that prohibit them from retaining, using, or sharing your data for any other purpose. Processing is ephemeral.</li>
+    <li><strong>Cloud AI/OCR Providers:</strong> Documents submitted for AI/OCR processing are transmitted to our third-party AI service providers. These providers process your data solely on our behalf, under contractual obligations that prohibit them from using or sharing your data for any other purpose, or using it for AI model training. Retention is limited to the short periods described in Section 5.</li>
     <li><strong>Firebase (Google):</strong> Analytics, crash reporting, and performance monitoring. Google processes data under its Data Processing Terms.</li>
   </ul>
 
@@ -243,7 +243,15 @@
   <h2 id="section-5">5. Data Retention</h2>
   <ul>
     <li><strong>Account data:</strong> Retained for as long as your account is active. Upon permanent account deletion, all associated personal data is permanently deleted within 30 days, except where retention is required by law.</li>
-    <li><strong>Cloud-processed documents:</strong> Deleted from our servers immediately after processing completes. We do not retain copies. Typical processing time is under 60 seconds.</li>
+    <li><strong>Cloud processing data (AI/OCR):</strong> When you use a cloud AI/OCR feature, the related data is automatically deleted after a short, fixed retention period:
+      <ul>
+        <li>Uploaded images/PDFs: 48 hours</li>
+        <li>Rendered preview pages: 24 hours</li>
+        <li>Extracted text and layout data: 7 days</li>
+        <li>Generated files (DOCX, PDF, HTML, TXT): 7 days</li>
+        <li>Job records (status, filename, page count): 7 days</li>
+      </ul>
+      This data is not used for AI model training. After account deletion, no related data is retained.</li>
     <li><strong>Credit and usage data:</strong> Retained while your account is active; deleted with your account data upon permanent deletion.</li>
     <li><strong>Analytics data:</strong> Aggregated and anonymized analytics data may be retained indefinitely. Data that can be linked to an individual is retained for no longer than 26 months.</li>
     <li><strong>Support communications:</strong> Retained for up to 24 months after resolution, then deleted.</li>
